@@ -1,0 +1,85 @@
+# ========================
+# Maven / Spring Boot
+# ========================
+target/
+logs/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/*
+!mvnw
+!mvnw.cmd
+
+# ========================
+# IntelliJ IDEA
+# ========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ========================
+# Eclipse
+# ========================
+.project
+.classpath
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+
+# ========================
+# OS Specific
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Log / Temp Files
+# ========================
+*.log
+*.tmp
+*.swp
+*.pid
+
+# ========================
+# Build Tool
+# ========================
+build/
+dist/
+
+# ========================
+# Test Output
+# ========================
+test-output/
+surefire-reports/
+
+# ========================
+# Environment & Config
+# ========================
+.env
+application-*.yml
+application-*.properties
+# Uncomment if you have a local-only config file
+# application-local.yml
+
+# ========================
+# Docker
+# ========================
+# Ignore build artifacts and container data
+docker-compose.override.yml
+docker-compose.dev.yml
+.docker/
+docker-data/
+*Dockerfile.*.bak
+*.tar
+
+# ========================
+# Redis
+# ========================
+# Local Redis dump or persistence files
+dump.rdb
+appendonly.aof
+redis-data/
+redis.conf
+
