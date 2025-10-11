@@ -1,9 +1,9 @@
 services:
   redis_url_shortener_service:
     image: redis
-    container_name: redis_url_shortener_container
+    container_name: ${REDIS_HOSTNAME}
     expose: 
-      - 6379
+      - ${REDIS_PORT}
     networks: 
       - url_shortener_net
     healthcheck:
@@ -15,11 +15,11 @@ services:
 
   mysql_url_shortener_service: 
     image: mysql
-    container_name: mysql_url_shortener_container
+    container_name: ${MYSQL_HOSTNAME}
     expose: 
-      - 3306
+      - ${MYSQL_PORT}
     ports:
-      - "3307:3306"
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
     environment:
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - MYSQL_DATABASE=practice
@@ -42,8 +42,8 @@ services:
       dockerfile: Dockerfile
     image: url_shortener_docker_image
     container_name: spring_url_shortener_container
-    environment:
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+    env_file:
+      - dev.env
     networks:
       - url_shortener_net
     depends_on:
