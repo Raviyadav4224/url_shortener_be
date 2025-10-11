@@ -68,7 +68,6 @@ application-*.properties
 # ========================
 # Ignore build artifacts and container data
 docker-compose.override.yml
-docker-compose.dev.yml
 .docker/
 docker-data/
 *Dockerfile.*.bak
@@ -82,4 +81,10 @@ dump.rdb
 appendonly.aof
 redis-data/
 redis.conf
+
+
+# ========================
+# env files
+# ========================
+*.env
 
