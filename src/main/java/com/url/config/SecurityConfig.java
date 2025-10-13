@@ -1,6 +1,5 @@
 package com.url.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +39,8 @@ public class SecurityConfig {
 
 		http.csrf((csrf) -> csrf.disable()).cors(withDefaults())
 				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/api/v1/users/**","/actuator/**").permitAll().anyRequest().authenticated())
+						auth -> auth.requestMatchers("/api/v1/users/**", "/actuator/**", "/api/v1/url/r/*").permitAll()
+								.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 

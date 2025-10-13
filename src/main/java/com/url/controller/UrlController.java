@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +34,9 @@ public class UrlController {
 	private UserRepo user_repo;
 	private JwtUtils jwtUtils;
 
+	@Value("${BASE_APP_URL}")
+	private String baseUrl;
+
 	public UrlController(UrlMappingService url_service, UserRepo user_repo, JwtUtils jwtUtils) {
 		this.url_service = url_service;
 		this.user_repo = user_repo;
@@ -55,7 +59,7 @@ public class UrlController {
 
 		HashMap<String, String> response = new HashMap<String, String>();
 
-		String newUrl = "http://localhost:8080/api/v1/url/r/" + mapping.getShortUrl();
+		String newUrl = baseUrl + "/api/v1/url/r/" + mapping.getShortUrl();
 		response.put("shortUrl", newUrl);
 		response.put("expires at", mapping.getExpiresAt().toString());
 
