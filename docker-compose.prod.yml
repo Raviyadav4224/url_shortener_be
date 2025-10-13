@@ -43,7 +43,7 @@ services:
     image: url_shortener_docker_image
     container_name: spring_url_shortener_container
     env_file:
-      - dev.env
+      - prod.env
     networks:
       - url_shortener_net
     depends_on:

@@ -12,4 +12,3 @@ WORKDIR /url-app
 COPY --from=build /url-app/target/url-shortener-app.jar .
 EXPOSE 8080
 ENTRYPOINT [ "java","-jar","url-shortener-app.jar" ]
-CMD [ "--spring.profiles.active=dev" ]
