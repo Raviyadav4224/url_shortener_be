@@ -58,8 +58,6 @@ surefire-reports/
 # Environment & Config
 # ========================
 .env
-application-*.yml
-application-*.properties
 # Uncomment if you have a local-only config file
 # application-local.yml
 
