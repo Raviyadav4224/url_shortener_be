@@ -48,6 +48,8 @@ services:
         condition: service_healthy
     ports: 
       - "${SPRING_APP_PORT}:${SPRING_APP_PORT}"
+    env_file:
+      - ${APP_ENV}.env
 
 volumes:
   url_shortener_vol:

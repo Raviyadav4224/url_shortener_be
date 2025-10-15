@@ -49,7 +49,7 @@ services:
     ports: 
       - "${SPRING_APP_PORT}:${SPRING_APP_PORT}"
     env_file:
-      - dev.env
+      - ${APP_ENV}.env
 
 volumes:
   url_shortener_vol:
