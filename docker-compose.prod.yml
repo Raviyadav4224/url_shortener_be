@@ -37,13 +37,8 @@ services:
           start_period: 10s
 
   spring_url_shortener_service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: url_shortener_docker_image
+    image: url-shortener:${APP_ENV}-0.0.${BUILD_NUMBER}
     container_name: spring_url_shortener_container
-    env_file:
-      - prod.env
     networks:
       - url_shortener_net
     depends_on:

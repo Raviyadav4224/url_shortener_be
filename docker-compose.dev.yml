@@ -37,7 +37,7 @@ services:
           start_period: 10s
 
   spring_url_shortener_service:
-    image: url-shortener:0.0.${BUILD_NUMBER}
+    image: url-shortener:${APP_ENV}-0.0.${BUILD_NUMBER}
     container_name: spring_url_shortener_container
     networks:
       - url_shortener_net
