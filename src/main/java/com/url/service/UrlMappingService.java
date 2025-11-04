@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,9 @@ public class UrlMappingService {
 		this.url_repo = url_repo;
 		this.user_repo = user_repo;
 	}
+
+	@Value("${base.app.url}")
+	public String BASE_APP_URL;
 
 	public UrlMapping shortenUrl(UrlRequest request, User user) {
 
@@ -117,7 +121,7 @@ public class UrlMappingService {
 //		save in Redis
 		redisTemplate.opsForValue().set(shortCode, mapping,
 				Duration.between(LocalDateTime.now(), mapping.getExpiresAt()));
-		return mapping.getOriginalUrl();
+		return BASE_APP_URL + mapping.getOriginalUrl();
 	}
 
 }

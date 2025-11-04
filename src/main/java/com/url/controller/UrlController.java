@@ -34,7 +34,7 @@ public class UrlController {
 	private UserRepo user_repo;
 	private JwtUtils jwtUtils;
 
-	@Value("${BASE_APP_URL}")
+	@Value("${base.app.url}")
 	private String baseUrl;
 
 	public UrlController(UrlMappingService url_service, UserRepo user_repo, JwtUtils jwtUtils) {
