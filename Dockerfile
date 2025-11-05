@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 #STAGE 2 : Start the Spring Application
-FROM openjdk:21-slim-bullseye
+FROM 21-alpine3.22-jdk
 WORKDIR /url-app
 COPY --from=build /url-app/target/url-shortener-app.jar .
 EXPOSE 8080
