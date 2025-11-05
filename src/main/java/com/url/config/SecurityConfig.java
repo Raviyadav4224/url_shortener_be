@@ -68,7 +68,7 @@ public class SecurityConfig {
 		configuration.setAllowedOrigins(List.of("*")); // your frontend domain
 		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(List.of("*"));
-		configuration.setAllowCredentials(true);
+//		configuration.setAllowCredentials(true);// Used when sending cookies
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
