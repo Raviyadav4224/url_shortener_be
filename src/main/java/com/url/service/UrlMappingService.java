@@ -67,7 +67,12 @@ public class UrlMappingService {
 	public List<UrlMapping> getAllUrls(Integer userId) {
 
 		User user = user_repo.findById(userId).orElseThrow(() -> new RuntimeException("No URL mapping's found"));
-		return user.getUrlMappings();
+
+		List<UrlMapping> result = user.getUrlMappings().stream().map(url -> {
+			url.setShortUrl(BASE_APP_URL + url.getShortUrl());
+			return url;
+		}).toList();
+		return result;
 	}
 
 	public ResponseEntity<ApiResponse<String>> removeUrl(Integer urlId, User user) {
