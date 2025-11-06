@@ -69,7 +69,7 @@ public class UrlMappingService {
 		User user = user_repo.findById(userId).orElseThrow(() -> new RuntimeException("No URL mapping's found"));
 
 		List<UrlMapping> result = user.getUrlMappings().stream().map(url -> {
-			url.setShortUrl(BASE_APP_URL + "/" + url.getShortUrl());
+			url.setShortUrl(BASE_APP_URL + "/r/" + url.getShortUrl());
 			return url;
 		}).toList();
 		return result;
