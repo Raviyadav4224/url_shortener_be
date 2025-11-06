@@ -13,7 +13,7 @@ services:
         retries: 5
         start_period: 5s
 
-  mysql_url_shortener_service__DEV: 
+  mysql_url_shortener_service_DEV: 
     image: mysql
     container_name: ${MYSQL_HOSTNAME}
     expose: 
