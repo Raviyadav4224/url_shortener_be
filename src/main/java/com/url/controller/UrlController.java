@@ -72,10 +72,11 @@ public class UrlController {
 	ResponseEntity<ApiResponse<HashMap<String, String>>> redirectUrl(@PathVariable String shortCode)
 			throws IOException {
 
-		url_service.getOriginalUrl(shortCode);
+		String originalUrl = url_service.getOriginalUrl(shortCode);
 		HashMap<String, String> response = new HashMap<String, String>();
+		response.put("originalur", originalUrl);
 		return new ResponseEntity<ApiResponse<HashMap<String, String>>>(
-				new ApiResponse<HashMap<String, String>>("URL generated successfully", true, response),
+				new ApiResponse<HashMap<String, String>>("URL redirected successfully", true, response),
 				HttpStatus.CREATED);
 	}
 
