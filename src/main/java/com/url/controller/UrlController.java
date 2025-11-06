@@ -24,7 +24,6 @@ import com.url.repository.UserRepo;
 import com.url.service.UrlMappingService;
 import com.url.utils.JwtUtils;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -70,11 +69,14 @@ public class UrlController {
 
 //	GET /r/{shortCode}
 	@GetMapping("r/{shortCode}")
-	ResponseEntity<Void> redirectUrl(@PathVariable String shortCode, HttpServletResponse response) throws IOException {
+	ResponseEntity<ApiResponse<HashMap<String, String>>> redirectUrl(@PathVariable String shortCode)
+			throws IOException {
 
-		String originalUrl = url_service.getOriginalUrl(shortCode);
-		response.sendRedirect(originalUrl);
-		return ResponseEntity.status(HttpStatus.FOUND).build();
+		url_service.getOriginalUrl(shortCode);
+		HashMap<String, String> response = new HashMap<String, String>();
+		return new ResponseEntity<ApiResponse<HashMap<String, String>>>(
+				new ApiResponse<HashMap<String, String>>("URL generated successfully", true, response),
+				HttpStatus.CREATED);
 	}
 
 //	GET /api/user/{userId}/urls
