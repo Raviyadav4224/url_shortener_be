@@ -85,7 +85,7 @@ public class UrlController {
 	@GetMapping("all")
 	ResponseEntity<ApiResponse<List<UrlMapping>>> listAllUrls(@RequestHeader("Authorization") String token) {
 
-		Integer userId = jwtUtils.getUserId(token);
+		Integer userId = jwtUtils.getUserId(token.split("Bearer ")[1]);
 		List<UrlMapping> urlMappings = url_service.getAllUrls(userId);
 
 		return new ResponseEntity<ApiResponse<List<UrlMapping>>>(
