@@ -1,11 +1,11 @@
 services:
-  redis_url_shortener_service:
+  redis_url_shortener_service_DEV:
     image: redis
     container_name: ${REDIS_HOSTNAME}
     expose: 
       - ${REDIS_PORT}
     networks: 
-      - url_shortener_net
+      - url_shortener_net_DEV
     healthcheck:
         test: ["CMD","redis-cli","ping"]
         interval: 5s
@@ -13,7 +13,7 @@ services:
         retries: 5
         start_period: 5s
 
-  mysql_url_shortener_service: 
+  mysql_url_shortener_service__DEV: 
     image: mysql
     container_name: ${MYSQL_HOSTNAME}
     expose: 
@@ -26,9 +26,9 @@ services:
         - MYSQL_USER=${MYSQL_USERNAME}
         - MYSQL_PASSWORD=${MYSQL_USER_PASSWORD}
     networks:
-      - url_shortener_net
+      - url_shortener_net_DEV
     volumes:
-      - url_shortener_vol:/var/lib/mysql
+      - url_shortener_vol_DEV:/var/lib/mysql
     healthcheck:
           test: ["CMD","mysqladmin","ping","-h", "localhost"]
           interval: 5s
@@ -36,15 +36,15 @@ services:
           retries: 5
           start_period: 10s
 
-  spring_url_shortener_service:
+  spring_url_shortener_service_DEV:
     image: url-shortener:${APP_ENV}-0.0.${BUILD_NUMBER}
     container_name: spring_url_shortener_container
     networks:
-      - url_shortener_net
+      - url_shortener_net_DEV
     depends_on:
-      redis_url_shortener_service:
+      redis_url_shortener_service_DEV:
         condition: service_healthy
-      mysql_url_shortener_service:
+      mysql_url_shortener_service_DEV:
         condition: service_healthy
     ports: 
       - "${SPRING_APP_PORT}:${SPRING_APP_PORT}"
@@ -52,7 +52,7 @@ services:
       - ${APP_ENV}.env
 
 volumes:
-  url_shortener_vol:
+  url_shortener_vol_DEV:
 
 networks:
-  url_shortener_net:
+  url_shortener_net_DEV:
