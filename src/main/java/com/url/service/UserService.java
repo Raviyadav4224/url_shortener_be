@@ -38,9 +38,9 @@ public class UserService {
 		newUser.setPassword(passEncoder.encode(user.getPassword()));
 		newUser.setUsername(user.getUsername());
 
-		user_repo.save(newUser);
+		User savedUser = user_repo.save(newUser);
 
-		String token = jwtUtils.generateToken(user.getUsername());
+		String token = jwtUtils.generateToken(user.getUsername(), savedUser.getId());
 		return new ResponseEntity<ApiResponse<String>>(
 				new ApiResponse<String>("", true, "User registered successfully with token - " + token),
 				HttpStatus.CREATED);
@@ -55,9 +55,9 @@ public class UserService {
 		}
 
 //		get the token and send
-		String token = jwtUtils.generateToken(user.getUsername());
+		String token = jwtUtils.generateToken(user.getUsername(), dbUser.getId());
 
-		System.out.println("Toekn"+token);
+		System.out.println("Toekn" + token);
 		return new ResponseEntity<ApiResponse<String>>(
 				new ApiResponse<String>("", true, "User logged in successfully with token - " + token),
 				HttpStatus.CREATED);

@@ -23,8 +23,8 @@ public class JwtUtils {
 		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 	}
 
-	public String generateToken(String username) {
-		return Jwts.builder().subject(username).issuedAt(new Date())
+	public String generateToken(String username, Integer userId) {
+		return Jwts.builder().subject(username).claim("id", userId).issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 	}
@@ -32,6 +32,11 @@ public class JwtUtils {
 	public boolean isTokenValid(String token, String username) {
 		String extractedUsername = extractUsername(token);
 		return extractedUsername.equals(username) && !isTokenExpired(token);
+	}
+
+	public int getUserId(String token) {
+		Claims claim = Jwts.parser().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+		return claim.get("id", Integer.class);
 	}
 
 	private boolean isTokenExpired(String token) {

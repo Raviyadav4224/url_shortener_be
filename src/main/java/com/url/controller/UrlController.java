@@ -82,9 +82,10 @@ public class UrlController {
 
 //	GET /api/user/{userId}/urls
 
-	@GetMapping("all/{userId}")
-	ResponseEntity<ApiResponse<List<UrlMapping>>> listAllUrls(@PathVariable Integer userId) {
+	@GetMapping("all")
+	ResponseEntity<ApiResponse<List<UrlMapping>>> listAllUrls(@RequestHeader("Authorization") String token) {
 
+		Integer userId = jwtUtils.getUserId(token);
 		List<UrlMapping> urlMappings = url_service.getAllUrls(userId);
 
 		return new ResponseEntity<ApiResponse<List<UrlMapping>>>(
