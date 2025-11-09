@@ -38,7 +38,7 @@ services:
 
   spring_url_shortener_service:
     image: url-shortener:${APP_ENV}-0.0.${BUILD_NUMBER}
-    container_name: spring_url_shortener_container
+    container_name: ${SPRING_HOSTNAME}
     networks:
       - url_shortener_net
     depends_on:
