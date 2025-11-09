@@ -1,6 +1,9 @@
 package com.url.controller;
 
+import java.util.HashMap;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +27,24 @@ public class UserController {
 	}
 
 	@PostMapping("register")
-	ResponseEntity<ApiResponse<String>> registerUser(@RequestBody @Valid UserRegister user) {
+	ResponseEntity<ApiResponse<HashMap<String, String>>> registerUser(@RequestBody @Valid UserRegister user) {
 		return user_service.registerUser(user);
 	}
 
 	@PostMapping("login")
-	ResponseEntity<ApiResponse<String>> loginUser(@RequestBody @Valid UserRegister user) {
+	ResponseEntity<ApiResponse<HashMap<String, String>>> loginUser(@RequestBody @Valid UserRegister user) {
 		return user_service.loginUser(user);
 	}
-	
+
 	@PostMapping("logout")
 	ResponseEntity<ApiResponse<String>> logOutUser(HttpServletRequest request) {
 		return user_service.logOutUser(request);
 	}
+
+	@PostMapping("refresh")
+	ResponseEntity<ApiResponse<HashMap<String, String>>> refreshUser(
+			@CookieValue(name = "refreshToken", required = false) String refreshCookie) {
+		return user_service.refresh(refreshCookie);
+	}
+
 }

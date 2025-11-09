@@ -31,7 +31,10 @@ public class UrlMappingService {
 	}
 
 	@Value("${base.app.url}")
-	public String BASE_APP_URL;
+	private String BASE_APP_URL;
+
+	@Value("${server.port}")
+	private String SERVER_PORT;
 
 	public UrlMapping shortenUrl(UrlRequest request, User user) {
 
@@ -69,7 +72,7 @@ public class UrlMappingService {
 		User user = user_repo.findById(userId).orElseThrow(() -> new RuntimeException("No URL mapping's found"));
 
 		List<UrlMapping> result = user.getUrlMappings().stream().map(url -> {
-			url.setShortUrl(BASE_APP_URL + "/r/" + url.getShortUrl());
+			url.setShortUrl(BASE_APP_URL + ":" + SERVER_PORT + "/api/v1/r/" + url.getShortUrl());
 			return url;
 		}).toList();
 		return result;
@@ -126,7 +129,7 @@ public class UrlMappingService {
 //		save in Redis
 		redisTemplate.opsForValue().set(shortCode, mapping,
 				Duration.between(LocalDateTime.now(), mapping.getExpiresAt()));
-		return BASE_APP_URL + mapping.getOriginalUrl();
+		return mapping.getOriginalUrl();
 	}
 
 }

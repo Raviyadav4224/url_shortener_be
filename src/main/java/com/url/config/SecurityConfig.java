@@ -1,5 +1,6 @@
 package com.url.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +19,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.url.filters.JwtFilter;
 import com.url.models.MyUserDetailsService;
 
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import java.util.Arrays;
 import java.util.List;
 
 @EnableWebSecurity
@@ -61,14 +64,23 @@ public class SecurityConfig {
 
 	}
 
+	@Value("${frontend.origins}")
+	String allowedOrigins;
+
+	@Value("${frontend.methods}")
+	String allowedMethods;
+
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500")); // your frontend domain
-		configuration.setAllowedOrigins(List.of("*")); // your frontend domain
-		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		
+		System.out.println(Arrays.asList(allowedOrigins.split(",")));
+		System.out.println(Arrays.asList(allowedMethods.split(",")));
+//		configuration.setAllowedOrigins(List.of("http://127.0.0.1:5173")); // your frontend domain
+		configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(","))); // your frontend domain
+		configuration.setAllowedMethods(Arrays.asList(allowedMethods.split(",")));
 		configuration.setAllowedHeaders(List.of("*"));
-//		configuration.setAllowCredentials(true);// Used when sending cookies
+		configuration.setAllowCredentials(true);// Used when sending cookies
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);

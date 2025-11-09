@@ -74,7 +74,7 @@ public class UrlController {
 
 		String originalUrl = url_service.getOriginalUrl(shortCode);
 		HashMap<String, String> response = new HashMap<String, String>();
-		response.put("originalur", originalUrl);
+		response.put("originalurl", originalUrl);
 		return new ResponseEntity<ApiResponse<HashMap<String, String>>>(
 				new ApiResponse<HashMap<String, String>>("URL redirected successfully", true, response),
 				HttpStatus.CREATED);
